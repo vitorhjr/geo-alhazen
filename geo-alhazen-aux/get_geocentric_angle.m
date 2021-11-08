@@ -5,11 +5,11 @@ function [geo_ang,geo_ang_at] = get_geocentric_angle (Ha,Ht,e,g,Rs)
 % and reflection point
 %
 % INPUT:
-% - H: Antenna height (in meters)
+% - Ha: Antenna height (in meters)
 % - Ht: Transmitter/satelitte height (in meters)
 % - e: Elevation angle of transmitter (in degree)
 % - g: Grazing angle (in degree)
-% - R: Earth radius (in meters)
+% - Rs: Earth radius (in meters)
 %
 % Obs: 
 % - Rt and is only for phi_at, otherwise use h2=0 and e=0;

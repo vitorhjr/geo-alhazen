@@ -1,13 +1,14 @@
 function [graz_ang, geo_ang, x_spec, y_spec, x_trans, y_trans] = get_reflection_spherical_helm (e, Ha, Ht, Rs)
 
+% GET_REFLECTION_SPHERICAL_HELM Calculates reflection on spherical 
+% surface based on Helm (2008) equations.
+%
 % A. Helm (2008)
 % Ground-based GPS altimetry with the L1 OpenGPS receiver
 % using carrier phase-delay observations of reflected GPS signals
 % Scientific Technical Report 08/10
 % doi: 10.2312/GFZ.b103-08104
 % www.gfz-potsdam.de/bib/pub/str0810/0810.pdf
-
-% Solution to spherical reflection with Helm (2008) equations
 %
 % INPUT:
 % - Ha: antenna/receiver height (in meters)

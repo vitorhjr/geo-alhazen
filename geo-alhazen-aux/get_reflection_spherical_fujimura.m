@@ -1,10 +1,11 @@
 function [graz_ang, geo_ang, x_spec, y_spec, x_trans, y_trans] = get_reflection_spherical_fujimura (e, Ha, Ht, Rs)
 
+% GET_REFLECTION_SPHERICAL_FUJIMURA Calculates reflection on spherical 
+% surface based on Fujimura et al. (2019) equations.
+%
 % M. Fujimura et al. (2019)
 % The Ptolemy–Alhazen Problem and Spherical Mirror Reflection
 % Computational Methods and Function Theory,  v.19, p. 135–155
-
-% Solution to spherical reflection with Fujimura et al. (2019) equations
 %
 % INPUT:
 % - Ha: antenna/receiver height (in meters)

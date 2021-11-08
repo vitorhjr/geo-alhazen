@@ -7,7 +7,7 @@ function varargout = get_satellite_position (e,Ha,Ht,Rs,f)
 % - e: Elevation angle of transmitter (in degree)
 % - Ha: Antenna height (in meters)
 % - Ht: Transmitter/satelitte height (in meters)
-% - R0: Earth radius
+% - Rs: Earth radius
 % - f: flag about frame:
 %      if 0, local frame (origin at the antenna foot)
 %      if 1, geocentric frame (origin at center of Earth)

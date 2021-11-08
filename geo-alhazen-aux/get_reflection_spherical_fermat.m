@@ -1,7 +1,7 @@
 function [graz_ang, geo_ang, x_spec, y_spec, x_trans, y_trans] = get_reflection_spherical_fermat (e, Ha, Ht, Rs)
 
-% Numerical method based on Fermat's principle of least time to solve the
-% reflection on a spher
+% GET_REFLECTION_SPHERICAL_FUJIMURA Calculates reflection on spherical 
+% surface with a numerical method based on Fermat's principle of least time
 %
 % INPUT:
 % - Ha: antenna/receiver height (in meters)

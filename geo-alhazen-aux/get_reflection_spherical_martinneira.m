@@ -1,11 +1,12 @@
 function [graz_ang, geo_ang, x_spec, y_spec, x_trans, y_trans] = get_reflection_spherical_martinneira (e, Ha, Ht, Rs)
 
+% GET_REFLECTION_SPHERICAL_MARTINNEIRA Calculates reflection on spherical 
+% surface based on Martín-Neira (1993) equations.
+%
 % M. Martin-Neira (1993)
 % A Passive Reflectometry and Interferometry System
 % (PARIS): Application to Ocean Altimetry
 % ESA Journal, v. 17
-
-% Solution to spherical reflection with Martin-Neira (1993) equations
 %
 % INPUT:
 % - Ha: antenna/receiver height (in meters)

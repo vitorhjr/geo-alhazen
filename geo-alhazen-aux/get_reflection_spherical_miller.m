@@ -1,5 +1,9 @@
 function [graz_ang, geo_ang, x_spec, y_spec, x_trans, y_trans] = get_reflection_spherical_miller (e, Ha, Ht, Rs)
-% Main reference 
+
+% GET_REFLECTION_SPHERICAL_MILLER  Calculates reflection on spherical 
+% surface based on Miller & Vegh (1993) equations.
+%
+%Main reference 
 % A. R. Miller and E. Vegh (1993)
 % "Exact Result for the Grazing Angle of Specular Reflection from a Sphere"
 % SIAM Review, Vol. 35, No. 3 (Sep., 1993), pp. 472-480
@@ -12,9 +16,6 @@ function [graz_ang, geo_ang, x_spec, y_spec, x_trans, y_trans] = get_reflection_
 % International Journal of Mathematical Education in Science and
 % Technology, v. 21, n. 2
 % <https://doi.org/10.1080/0020739900210213>
-
-% Solution to spherical reflection with Miller and Vegh (1993) and 
-% Miller and Vegh (1990) and equations
 %
 % INPUT:
 % - Ha: antenna/receiver height (in meters)
@@ -70,6 +71,7 @@ pos_trans_loc = get_satellite_position (e,Ha,Ht,Rs,0);
 x_trans = pos_trans_loc(1);
 y_trans = pos_trans_loc(2);
 end
+
 
 function psi = z2psi (zs, phi, k1, k2)
   
