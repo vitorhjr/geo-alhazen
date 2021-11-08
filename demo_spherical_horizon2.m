@@ -1,4 +1,4 @@
-addpath(genpath('c:\work\experiment\20210928 - Vitor, código\geo-alhazen-multh\'),'-end')
+addpath(genpath(pwd))
 
 e_dom = 1:5:90;
 Ha_dom = [10 50 100 200 300 500 1000];

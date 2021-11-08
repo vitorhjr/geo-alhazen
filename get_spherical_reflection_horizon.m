@@ -23,10 +23,10 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, ehor] = get_sphe
     slant_dist = sqrt(2.*Rs.*Ha+Ha.^2);    
     Y_spec = Rs-Ha./(1+Ha./Rs);
     X_spec = sqrt(Rs.^2-Y_spec.^2);
-    y_spec = Yspec-Rs;
+    y_spec = Y_spec-Rs;
     x_spec = X_spec;
     arc_len = Rs.*(asin(x_spec./Rs));
-    ehor = get_spherical_horizon_elev(Ha,Rs);
+    ehor = get_horizon_elevation_angle (Ha,Rs);
 
 end
 

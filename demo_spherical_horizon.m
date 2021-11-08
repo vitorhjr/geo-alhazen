@@ -24,23 +24,20 @@ for i=1:n
     ehor = ehors(i);
     for j=1:m
         algorithm = algs{j};
-        [Di(i,j), g(i,j), arclen(i,j), sldist(i,j), Rspec]...
+        [Di(i,j), g(i,j), arclen(i,j), sldist(i,j), Xspec(i,j),Yspec(i,j)]...
             = get_reflection_spherical (ehor, Ha, [], [], algorithm);
-        Xspec(i,j) = Rspec(1);
-        Yspec(i,j) = Rspec(2)+Rs;
     end
 end
 
 %% Expected values on spherical horizon
-[Diref, gref, arclenref, sldistref, Rspecref] = get_spherical_horizon_params (Has, []);
-Xspecref = Rspecref(:,1);
-Yspecref = Rspecref(:,2)+Rs;
+[Diref, gref, arclenref, sldistref, Xspecref, Yspecref] ... 
+        = get_spherical_horizon_params (Has, []);
 
 %% Differences from expectation
 dif_Di = Di - Diref';
 dif_g = g - gref';
-dif_X = Xspec - Xspecref;
-dif_Y = Yspec - Yspecref;
+dif_X = Xspec - Xspecref';
+dif_Y = Yspec - Yspecref';
 dif_sd = sldist - sldistref';
 dif_al = arclen - arclenref';
 
