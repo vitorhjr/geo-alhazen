@@ -1,7 +1,9 @@
+addpath(genpath(pwd))
 clearvars
 
 %% Input values
 Has = [10 50 100 200 300 500 1000];
+ehors = get_horizon_elevation_angle (Has); % Minimum elevation angle
 algs = {'fujimura','martinneira','helm','millerandvegh','fermat'};
 Rs = get_earth_radius ();
 
@@ -13,35 +15,36 @@ Di = tmp;
 g = tmp;
 arclen = tmp;
 sldist = tmp;
-Xspec = tmp;
-Yspec = tmp;
+xspec = tmp;
+yspec = tmp;
 
 %% Computation of parameters for each algorithm
-ehors = get_horizon_elevation_angle (Has); % Minimum elevation angle
 
-for i=1:n
-    Ha = Has(i);
-    ehor = ehors(i);
-    for j=1:m
-        algorithm = algs{j};
-        [Di(i,j), g(i,j), arclen(i,j), sldist(i,j), Xspec(i,j),Yspec(i,j)]...
-            = get_reflection_spherical (ehor, Ha, [], [], algorithm);
-    end
+for i=1:m
+    
+    algorithm = algs{i};
+    [Di(:,i), g(:,i), arclen(:,i), sldist(:,i), xspec(:,i), yspec(:,i)]...
+            = get_reflection_spherical (ehors(:), Has(:), [], [], algorithm);
+        
 end
 
 %% Expected values on spherical horizon
-[Diref, gref, arclenref, sldistref, Xspecref, Yspecref] ... 
-        = get_spherical_horizon_params (Has, []);
+[Diref, gref, arclenref, sldistref, xspecref, yspecref] ... 
+                   = get_spherical_horizon_params (Has(:), []);
+               
+%% Reflection points from local frame to quasigeocentric frame
+[Xspec, Yspec] = get_quasigeo_coord (xspec,yspec,[]);
+[Xspecref, Yspecref] = get_quasigeo_coord (xspecref,yspecref,[]);
 
 %% Differences from expectation
-dif_Di = Di - Diref';
-dif_g = g - gref';
-dif_X = Xspec - Xspecref';
-dif_Y = Yspec - Yspecref';
-dif_sd = sldist - sldistref';
-dif_al = arclen - arclenref';
+dif_Di = Di - Diref;
+dif_g = g - gref;
+dif_X = Xspec - Xspecref;
+dif_Y = Yspec - Yspecref;
+dif_sd = sldist - sldistref;
+dif_al = arclen - arclenref;
 
-%RMSE
+%% RMSE
 rmse (1,:) = sqrt (sum(dif_g,1).^2 /numel(Has));
 rmse (2,:) = sqrt (sum(dif_Di,1).^2/numel(Has));
 rmse (3,:) = sqrt (sum(dif_X,1).^2./numel(Has));
@@ -62,8 +65,8 @@ tbl_al = array2table (arclen, 'VariableNames',algs);
 % Differences from expectation
 tbl_dDi = array2table (dif_Di, 'VariableNames',algs);
 tbl_dg = array2table (dif_g, 'VariableNames',algs);
-tbl_dX = array2table (dif_X, 'VariableNames',algs);
-tbl_dY = array2table (dif_Y, 'VariableNames',algs);
+tbl_dx = array2table (dif_X, 'VariableNames',algs);
+tbl_dy = array2table (dif_Y, 'VariableNames',algs);
 tbl_dsd = array2table (dif_sd, 'VariableNames',algs);
 tbl_dal = array2table (dif_al, 'VariableNames',algs);
 
