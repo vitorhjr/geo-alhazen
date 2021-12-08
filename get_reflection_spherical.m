@@ -1,4 +1,4 @@
-function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans, elev_spec] = get_reflection_spherical (e, Ha, Ht, Rs, algorithm, trajectory)
+function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans, elev_spec] = get_reflection_spherical (e, Ha, Ht, Rs, algorithm, trajectory, frame)
 % GET_REFLECTION_SPHERICAL  Calculates reflection on spherical surface.
 %
 % INPUT:
@@ -14,8 +14,8 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans
 % - graz_ang: grazing angle of spherical reflection that satisfies Snell's law (matrix, in degrees)
 % - arc_len: arc lenght between subreceiver point and reflection point (matrix, in meters)
 % - slant_dist: slant distance between receiver and reflection point (matrix, in meters)
-% - x_spec, y_spec: reflection point coordinates in local frame (matrices, in meters)
-% - x_trans, y_trans: transmitter point coordinates in local frame (matrices, in meters)
+% - x_spec, y_spec: reflection point coordinates (matrices, in meters)
+% - x_trans, y_trans: transmitter point coordinates (matrices, in meters)
 % - elev_spec: elevation angle from antenna to reflection point (matrix, in degrees)
 % - delay_trig: trigonometric formulation of interferometric propagation delay (matrix, in meters)
 % Note: output will be a matrix of the same size as input.
@@ -36,6 +36,7 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans
 %   'orbital'  % orbital trajectory (constant geocentric distance)
 %   'horizontal'  % horizontal trajectory (constant y-axis coordinate)
 %   'circular'  % circular trajectory around the receiving antenna (constant direct distance)
+% - frame: (char) coordinate reference frame ('local' - default - or 'quasigeo')
 
     if (nargin < 1),  e = [];  end
     if (nargin < 2),  Ha = [];  end
@@ -43,6 +44,7 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans
     if (nargin < 4),  Rs = [];  end
     if (nargin < 5),  algorithm = [];  end
     if (nargin < 6),  trajectory = [];  end
+    if (nargin < 7),  frame = [];  end
 
     if isempty(e),   e  = 45;  end
     if isempty(Ha),  Ha = 10;  end
@@ -50,6 +52,7 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans
     if isempty(Rs),  Rs = get_earth_radius();  end
     if isempty(algorithm),  algorithm = 'fujimura';  end
     if isempty(trajectory),  trajectory = 'orbital';  end
+    if isempty(frame),  frame = 'local';  end
 
     %% Check input size compatibility:
     assert(isscalar(Ht))
@@ -101,7 +104,7 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans
     [delay, arc_len, slant_dist, elev_spec] = get_reflection_spherical_extra (...
         n2, Ha, Rs, geo_ang, x_spec, y_spec, x_trans, y_trans);
 
-    %% Reshape output vectors as in input vector:
+    %% Reshape output matrices as in input matrices:
     delay = reshape(delay, siz);
     graz_ang = reshape(graz_ang, siz);
     arc_len = reshape(arc_len, siz);
@@ -111,7 +114,11 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans
     x_trans = reshape(x_trans, siz);
     y_trans = reshape(y_trans, siz);
     elev_spec = reshape(elev_spec, siz);
-        
+
+    %% Optionally, convert from reference frame:
+    if strcmpi(frame, 'local'),  return;  end
+    [x_spec, y_spec] = get_quasigeo_coord (x_spec, y_spec, Rs);
+    [x_trans, y_trans] = get_quasigeo_coord (x_trans, y_trans, Rs);    
 end
 
 %%
