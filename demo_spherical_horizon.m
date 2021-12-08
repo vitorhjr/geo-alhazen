@@ -5,7 +5,7 @@ clearvars
 Has = [10 50 100 200 300 500 1000];
 ehors = get_horizon_elevation_angle (Has); % Minimum elevation angle
 algs = {'fujimura','martinneira','helm','millerandvegh','fermat'};
-Rs = get_earth_radius ();
+frame = 'quasigeo';
 
 %% Pre-allocate data
 n = numel(Has);
@@ -24,13 +24,13 @@ for i=1:m
     
     algorithm = algs{i};
     [Di(:,i), g(:,i), arclen(:,i), sldist(:,i), X_spec(:,i), Y_spec(:,i)]...
-            = get_reflection_spherical (ehors(:), Has(:), [], [], algorithm, 'quasigeo');
+            = get_reflection_spherical (ehors(:), Has(:), [], [], algorithm, frame);
         
 end
 
 %% Expected values on spherical horizon
 [Diref, gref, arclenref, sldistref, X_specref, Y_specref] ... 
-                   = get_spherical_horizon_params (Has(:), [], 'quasigeo');
+                   = get_spherical_horizon_params (Has(:), [], frame);
 
 %% Differences from expectation
 dif_Di = Di - Diref;
@@ -61,8 +61,8 @@ tbl_al = array2table (arclen, 'VariableNames',algs);
 % Differences from expectation
 tbl_dDi = array2table (dif_Di, 'VariableNames',algs);
 tbl_dg = array2table (dif_g, 'VariableNames',algs);
-tbl_dx = array2table (dif_X, 'VariableNames',algs);
-tbl_dy = array2table (dif_Y, 'VariableNames',algs);
+tbl_dX = array2table (dif_X, 'VariableNames',algs);
+tbl_dY = array2table (dif_Y, 'VariableNames',algs);
 tbl_dsd = array2table (dif_sd, 'VariableNames',algs);
 tbl_dal = array2table (dif_al, 'VariableNames',algs);
 
