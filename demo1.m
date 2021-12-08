@@ -19,7 +19,7 @@ yspec = tmp;
 for i=1:m
     algorithm = algs{i};
     [Di(:,i), g(:,i), arclen(:,i), sldist(:,i), X_spec(:,i), Y_spec(:,i)]...
-            = get_reflection_spherical (ehors(:), Has(:), [], [], algorithm, frame);
+            = get_reflection_spherical (ehors(:), Has(:), [], [], algorithm, [], frame);
 end
 
 %% Expected values on spherical horizon
