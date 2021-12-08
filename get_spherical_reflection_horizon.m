@@ -33,7 +33,8 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, ehor] = get_sphe
     ehor = get_horizon_elevation_angle (Ha,Rs);
 
     if strcmpi(frame, 'local'),  return;  end
-    [Xspec, Yspec] = get_quasigeo_coord (xspec, yspec, Rs);
-    [Xspecref, Yspecref] = get_quasigeo_coord (xspecref, yspecref, Rs);
+    % output will be in quasi-geocentric frame:
+    x_spec = X_spec;
+    y_spec = Y_spec;
 end
 
