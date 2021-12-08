@@ -1,5 +1,5 @@
 function [delay, graz_ang, arc_len, slant_dist, X_spec, Y_spec, X_trans, Y_trans, elev_spec] = get_reflection_spherical_quasigeo (varargin)
-% GET_REFLECTION_SPHERICAL_GLOBAL  Calculates reflection on spherical surface, with output coordinates in quasi-geocentric frame.
+% GET_REFLECTION_SPHERICAL_QUASIGEO  Calculates reflection on spherical surface, with output coordinates in quasi-geocentric frame.
 %
 % INPUT: same as get_reflection_spherical
 % 
