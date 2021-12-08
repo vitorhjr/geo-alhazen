@@ -1,6 +1,3 @@
-addpath(genpath(pwd))
-clearvars
-
 %% Input values
 Has = [10 50 100 200 300 500 1000];
 ehors = get_horizon_elevation_angle (Has); % Minimum elevation angle
@@ -19,13 +16,10 @@ xspec = tmp;
 yspec = tmp;
 
 %% Computation of parameters for each algorithm
-
 for i=1:m
-    
     algorithm = algs{i};
     [Di(:,i), g(:,i), arclen(:,i), sldist(:,i), X_spec(:,i), Y_spec(:,i)]...
             = get_reflection_spherical (ehors(:), Has(:), [], [], algorithm, frame);
-        
 end
 
 %% Expected values on spherical horizon
@@ -69,15 +63,3 @@ tbl_dal = array2table (dif_al, 'VariableNames',algs);
 % RMSE
 tbl_rmse = array2table (rmse, 'VariableNames',algs, ...
                         'RowNames',{'Graz. angle','Delay','X coord.','Y coord.','Slant dist.','Arc Len.'});
-
-%% Figure minimum elevation angle
-x = 0:1:max(Has);
-y = get_horizon_elevation_angle([0:1:max(Has)],[]);
-
-figure
-plot (x,y,'--r','LineWidth',3)
-ylim([min(ehors) 0])
-ylabel ('Minimum elevation angle (degrees)')
-xlabel ('Antenna height (m)')
-grid on
-set(gca,'FontSize',18)
