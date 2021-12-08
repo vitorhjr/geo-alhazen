@@ -1,5 +1,5 @@
-function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans, elev_spec] = get_reflection_spherical (e, Ha, Ht, Rs, algorithm, trajectory, frame)
-% GET_REFLECTION_SPHERICAL  Calculates reflection on spherical surface.
+function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans, elev_spec] = get_spherical_reflection (e, Ha, Ht, Rs, algorithm, trajectory, frame)
+% GET_SPHERICAL_REFLECTION  Calculates specular reflection on spherical surface.
 %
 % INPUT:
 % - e: elevation angles (matrix; in degrees) 
@@ -101,7 +101,7 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans
     end
 
     %% Additional parameters
-    [delay, arc_len, slant_dist, elev_spec] = get_reflection_spherical_extra (...
+    [delay, arc_len, slant_dist, elev_spec] = get_spherical_reflection_extra (...
         n2, Ha, Rs, geo_ang, x_spec, y_spec, x_trans, y_trans);
 
     %% Reshape output matrices as in input matrices:
@@ -122,7 +122,7 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, x_trans, y_trans
 end
 
 %%
-function [delay, arc_len, slant_dist, elev_spec] = get_reflection_spherical_extra (n2, Ha, Rs, geo_ang, x_spec, y_spec, x_trans, y_trans)
+function [delay, arc_len, slant_dist, elev_spec] = get_spherical_reflection_extra (n2, Ha, Rs, geo_ang, x_spec, y_spec, x_trans, y_trans)
 
     % Arc Length from subreceiver point to reflection point:
     arc_len = deg2rad(geo_ang)*Rs;
