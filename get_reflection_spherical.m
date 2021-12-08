@@ -198,7 +198,7 @@ function Hts = get_satellite_trajectory (e, Ha, Ht, R0, trajectory)
             pos_trans_geo = pos_trans + pos_foot_geo;
             Hts = norm_all(pos_trans_geo);
         otherwise
-            error('Unknown transmitting satellite trajectory "%s".', char(transmitter))
+            error('Unknown transmitting satellite trajectory "%s".', char(trajectory))
     end
 
 end
