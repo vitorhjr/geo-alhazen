@@ -23,24 +23,20 @@ yspec = tmp;
 for i=1:m
     
     algorithm = algs{i};
-    [Di(:,i), g(:,i), arclen(:,i), sldist(:,i), xspec(:,i), yspec(:,i)]...
-            = get_reflection_spherical (ehors(:), Has(:), [], [], algorithm);
+    [Di(:,i), g(:,i), arclen(:,i), sldist(:,i), X_spec(:,i), Y_spec(:,i)]...
+            = get_reflection_spherical (ehors(:), Has(:), [], [], algorithm,'quasigeo');
         
 end
 
 %% Expected values on spherical horizon
-[Diref, gref, arclenref, sldistref, xspecref, yspecref] ... 
-                   = get_spherical_horizon_params (Has(:), []);
-               
-%% Reflection points from local frame to quasigeocentric frame
-[Xspec, Yspec] = get_quasigeo_coord (xspec,yspec,[]);
-[Xspecref, Yspecref] = get_quasigeo_coord (xspecref,yspecref,[]);
+[Diref, gref, arclenref, sldistref, X_specref, Y_specref] ... 
+                   = get_spherical_horizon_params (Has(:), [], 'quasigeo');
 
 %% Differences from expectation
 dif_Di = Di - Diref;
 dif_g = g - gref;
-dif_X = Xspec - Xspecref;
-dif_Y = Yspec - Yspecref;
+dif_X = X_spec - X_specref;
+dif_Y = Y_spec - Y_specref;
 dif_sd = sldist - sldistref;
 dif_al = arclen - arclenref;
 
@@ -57,8 +53,8 @@ rmse (6,:) = sqrt (sum(dif_al,1).^2/numel(Has));
 % Parameters
 tbl_Di = array2table (Di, 'VariableNames',algs);
 tbl_g = array2table (g, 'VariableNames',algs);
-tbl_X = array2table (Xspec, 'VariableNames',algs);
-tbl_Y = array2table (Yspec, 'VariableNames',algs);
+tbl_X = array2table (X_spec, 'VariableNames',algs);
+tbl_Y = array2table (Y_spec, 'VariableNames',algs);
 tbl_sd = array2table (sldist, 'VariableNames',algs);
 tbl_al = array2table (arclen, 'VariableNames',algs);
 
