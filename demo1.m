@@ -1,6 +1,6 @@
 %% Input values
 Has = [10 50 100 200 300 500 1000];
-ehors = get_horizon_elevation_angle (Has); % Minimum elevation angle
+ehors = get_spherical_reflection_horizon_elev (Has); % Minimum elevation angle
 algs = {'fujimura','martinneira','helm','millerandvegh','fermat'};
 frame = 'quasigeo';
 
