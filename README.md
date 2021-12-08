@@ -7,4 +7,4 @@ Functions to solve the reflection on a sphere using different algorithms.
 Also, a function to solve reflection parameters on the spherical horizon. 
 
 For the documentation of the main algorithm input and output parameters, 
-please see function [get_reflection_spherical.m](get_reflection_spherical.m).
+please see function [get_spherical_reflection.m](get_spherical_reflection.m).
