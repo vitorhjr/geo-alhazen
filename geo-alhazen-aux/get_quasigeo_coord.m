@@ -1,13 +1,20 @@
-function [X, Y] = get_quasigeo_coord (x,y,Rs)
+function [X, Y] = get_quasigeo_coord (x, y, Rs)
 
-% Return quasigeocentric cartesian coordinates (X,Y) w.r.t. the center of
-% osculating sphere
+% GET_QUASIGEO_COORD Convert coordinates from local to quasigeocentric frame.
+% 
+% Note: local frame has origin at the foot of the antenna.
+% while quasigeocentric frame has origin at the center of osculating sphere
 %
-% Input:
-% x,y: pair of coordinates in a local frame
-% Rs: surface radius to the center of osculating sphere
+% INPUT:
+% - x,y: pair of coordinates in local frame
+% 
+% OUTPUT: 
+% - X,Y: pair of coordinates in quasigeocentric frame
+% 
+% OPTIONAL INPUT:
+% - Rs: surface radius to the center of osculating sphere
 
-if isempty(Rs),  Rs = get_earth_radius();  end
+if (nargin < 3) || isempty(Rs),  Rs = get_earth_radius();  end
 
 Y = y + Rs;
 X = x;
