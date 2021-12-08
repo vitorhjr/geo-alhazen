@@ -1,7 +1,7 @@
 Ha_max = 1000;
 Ha_step = 1;
 Has = 0:Ha_step:Ha_max
-ehorz = get_horizon_elevation_angle([0:1:max(Has)],[]);
+ehorz = get_horizon_elevation_angle(Has);
 
 figure
 plot(Has, ehorz, '--r','LineWidth',3)
