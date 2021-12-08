@@ -6,17 +6,17 @@ function [X, Y] = get_quasigeo_coord (x, y, Rs)
 % while quasigeocentric frame has origin at the center of osculating sphere
 %
 % INPUT:
-% - x,y: pair of coordinates in local frame
+% - x,y: pair of coordinates in local frame (matrix, in meters)
 % 
 % OUTPUT: 
-% - X,Y: pair of coordinates in quasigeocentric frame
+% - X,Y: pair of coordinates in quasigeocentric frame (matrix, in meters)
 % 
 % OPTIONAL INPUT:
-% - Rs: surface radius to the center of osculating sphere
+% - Rs: surface radius to the center of osculating sphere (scalar, in meters)
 
-if (nargin < 3) || isempty(Rs),  Rs = get_earth_radius();  end
+    if (nargin < 3) || isempty(Rs),  Rs = get_earth_radius();  end
 
-Y = y + Rs;
-X = x;
+    Y = y + Rs;
+    X = x;
 
 end
