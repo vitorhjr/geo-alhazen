@@ -1,22 +1,26 @@
-function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, ehor] = get_spherical_horizon_params (Ha, Rs)
+function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, ehor] = get_spherical_horizon_params (Ha, Rs, frame)
 
-% Returns parameters of the specular reflection on the spherical horizon.
-% All parameters are precisely derived from closed trigonometric 
-% formulations or exact expected results. 
+% GET_SPHERICAL_HORIZON_PARAMS: Returns parameters of the specular reflection on the spherical horizon.
 % 
-% Input:
-% Ha = antenna height above the surface (in meters)
-% R0 = radius of the sphere (in meters)
+% All parameters are precisely derived from closed trigonometric formulations or exact expected results. 
 % 
-% Output:
-% delay = interferometric delay (in meters)
-% graz_ang = grazing angle (degrees)
-% arc_len = arc length (in meters)
-% slant_dist = slant distance (in meters)
-% pos_spec = reflection point [Xhor, Yhor] (in meters)
-% ehor = elevation angle (degrees)
+% INPUT:
+% - Ha: antenna height above the surface (in meters)
+% 
+% OUTPUT:
+% - delay: interferometric delay (in meters)
+% - graz_ang: grazing angle (degrees)
+% - arc_len: arc length (in meters)
+% - slant_dist: slant distance (in meters)
+% - x_spec, y_spec: specular reflection point coordinates (in meters)
+% - ehor: elevation angle (degrees)
+% 
+% OPTIONAL INPUT:
+% - R0: radius of the sphere (in meters)
+% - frame: (char) coordinate reference frame ('local' - default - or 'quasigeo')
 
     if (nargin < 2) || isempty(Rs),  Rs = get_earth_radius();  end
+    if (nargin < 3) || isempty(frame),  frame = 'local';  end
 
     delay = zeros(size(Ha));
     graz_ang = zeros(size(Ha));
@@ -28,5 +32,8 @@ function [delay, graz_ang, arc_len, slant_dist, x_spec, y_spec, ehor] = get_sphe
     arc_len = Rs.*(asin(x_spec./Rs));
     ehor = get_horizon_elevation_angle (Ha,Rs);
 
+    if strcmpi(frame, 'local'),  return;  end
+    [Xspec, Yspec] = get_quasigeo_coord (xspec, yspec, Rs);
+    [Xspecref, Yspecref] = get_quasigeo_coord (xspecref, yspecref, Rs);
 end
 
